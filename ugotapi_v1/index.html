@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>第二章:UGOT接口 - UGOT</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u7b2c\u4e8c\u7ae0:UGOT\u63a5\u53e3";
+        var mkdocs_page_input_path = "ugotapi_v1.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> UGOT
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">第一章:认识UGOT</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">第二章:UGOT接口</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">搜索扫描设备</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#scan_device">scan_device( )</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">初始化设备</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#initializedevice_ip">initialize(device_ip)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">变形车</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#transform_set_chassis_heightheightfloat">transform_set_chassis_height(height:float)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#transform_move_speeddirectionintspeedint">transform_move_speed(direction:int,speed:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#transform_turn_speedturnintspeedint">transform_turn_speed(turn:int,speed:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#transform_move_speed_timesdirectionintspeedinttimesintunitint">transform_move_speed_times(direction:int,speed:int,times:int,unit:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#transform_turn_speed_timesturnintspeedinttimesintunitint">transform_turn_speed_times(turn:int,speed:int,times:int,unit:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#transform_move_turndirectionintspeedintturnintturn_speedint">transform_move_turn(direction:int,speed:int,turn:int,turn_speed:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#transform_motor_controllfintrfintlbintrbint">transform_motor_control(lf:int,rf:int,lb:int,rb:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#transform_stop">transform_stop()</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#transform_arm_controljointintpositionint-timeint">transform_arm_control(joint:int,position:int, time:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#transform_adaption_controloptionbool">transform_adaption_control(option:bool)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">麦轮车</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#mecanum_translate_speedangleintangleint">mecanum_translate_speed(angle:int,angle:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mecanum_translate_speed_timesangleintspeedinttimesintunitint">mecanum_translate_speed_times(angle:int,speed:int,times:int,unit:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mecanum_move_xyzx_speedinty_speedintz_speedint">mecanum_move_xyz(x_speed:int,y_speed:int,z_speed:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mecanum_move_speeddirectionintspeedint">mecanum_move_speed(direction:int,speed:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mecanum_turn_speedturnintspeedint">mecanum_turn_speed(turn:int,speed:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mecanum_move_speed_timesdirectionint-speedint-timesint-unitint">mecanum_move_speed_times(direction:int, speed:int, times:int, unit:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mecanum_turn_speed_timesdirectionintspeedinttimesintunitint">mecanum_turn_speed_times(direction:int,speed:int,times:int,unit:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mecanum_move_turnangleintspeedintturnintturn_speedint">mecanum_move_turn(angle:int,speed:int,turn:int,turn_speed:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mecanum_motor_controllfintrfintlbintrbint">mecanum_motor_control(lf:int,rf:int,lb:int,rb:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mecanum_stop">mecanum_stop()</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">平衡车</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#balance_start_balancing">balance_start_balancing()</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#balance_stop_balancing">balance_stop_balancing()</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#balance_move_speeddirectionintspeedint">balance_move_speed(direction:int,speed:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#balance_turn_speedturnintspeedint">balance_turn_speed(turn:int,speed:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#balance_move_speed_timesdirectionintspeedinttimesintunitint">balance_move_speed_times(direction:int,speed:int,times:int,unit:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#balance_turn_speed_timesturnintspeedinttimesintunitint">balance_turn_speed_times(turn:int,speed:int,times:int,unit:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#balance_move_turndirectionintspeedintturnintturn_speedint">balance_move_turn(direction:int,speed:int,turn:int,turn_speed:int)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">机械臂</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#mechanical_clamp_release">mechanical_clamp_release()</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mechanical_clamp_close">mechanical_clamp_close()</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mechanical_get_clamp_statusint">mechanical_get_clamp_status()→int</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mechanical_arms_restory">mechanical_arms_restory()</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mechanical_joint_controlangle1intangle2intangle3intdurationint">mechanical_joint_control(angle1:int,angle2:int,angle3:int,duration:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mechanical_single_joint_controljointintangleintdurationint">mechanical_single_joint_control(joint:int,angle:int,duration:int)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mechanical_move_axisxfloatyfloatzfloatdurationint">mechanical_move_axis(x:float,y:float,z:float,duration:int)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ai">AI视觉</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">语音</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">显示屏</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">灯光</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">传感器</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_11">物联网</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_12">电池</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#get_power_statuslist">get_power_status()→list</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_13">蓝牙</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#get_bluetooth_statuslist">get_bluetooth_status()→list</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_mac_addressstr">get_mac_address()→str</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_device_namestr">get_device_name()→str</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_peripheral_devices_listlist">get_peripheral_devices_list()→list</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../custom/">第三章:进阶玩法</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">UGOT</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+      <li>第二章:UGOT接口</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ugot-python">UGOT Python接口说明</h1>
+<p>......<br></p>
+<!-- ![show](img/show.gif)<br><br> -->
+
+<h2 id="_1">搜索扫描设备</h2>
+<h3 id="scan_device">scan_device( )</h3>
+<p>搜索获取同一局域网内的UGOT设备并打印。</p>
+<pre><code>from ugot.ugot import UGOT
+
+stand()                      #。。
+</code></pre>
+<hr>
+<h2 id="_2">初始化设备</h2>
+<h3 id="initializedevice_ip">initialize(device_ip)</h3>
+<p>通过IP地址初始化相关设备。</p>
+<pre><code>from ugot.ugot import UGOT
+
+stand()                      #。。
+</code></pre>
+<hr>
+<h2 id="_3">变形车</h2>
+<p>....</p>
+<h3 id="transform_set_chassis_heightheightfloat">transform_set_chassis_height(height:float)</h3>
+<p>设置变形车底盘高度。<br></p>
+<p>• <code>height</code> - 高度，范围：[1-7.2] 厘米<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="transform_move_speeddirectionintspeedint">transform_move_speed(direction:int,speed:int)</h3>
+<p>变形工程车前进/后退运动。<br></p>
+<p>• <code>direction</code> - 方向（0：前进；1：后退）<br>
+ • <code>speed</code> - 速度，范围：[0-80] 厘米/秒<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="transform_turn_speedturnintspeedint">transform_turn_speed(turn:int,speed:int)</h3>
+<p>变形工程车左转/右转运动。<br></p>
+<p>• <code>turn</code> - 方向（2：左转；3：右转）<br>
+ • <code>speed</code> - 速度，范围：[0-280] 度/秒<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="transform_move_speed_timesdirectionintspeedinttimesintunitint">transform_move_speed_times(direction:int,speed:int,times:int,unit:int)</h3>
+<p>控制变形车前后运动x秒/cm后停止。<br></p>
+<p>• <code>direction</code> - 方向（0：前进；1：后退）<br>
+ • <code>speed</code> - 速度，范围： [0-80] 厘米/秒<br>
+ • <code>times</code> - 持续范围,范围：[0-200] <br>
+ • <code>unit</code> - 单位类型（0：表示按秒运动；1：表示按厘米运动）<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="transform_turn_speed_timesturnintspeedinttimesintunitint">transform_turn_speed_times(turn:int,speed:int,times:int,unit:int)</h3>
+<p>控制变形车左右运动x秒/度后停止。<br></p>
+<p>• <code>turn</code> - 方向（2：左转；3：右转）<br>
+ • <code>speed</code> - 速度,范围： [0-280] 度/秒<br>
+ • <code>times</code> - 持续范围,范围：[0-200] <br>
+ • <code>unit</code> - 单位类型（0：表示按秒运动；1：表示按度运动）<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="transform_move_turndirectionintspeedintturnintturn_speedint">transform_move_turn(direction:int,speed:int,turn:int,turn_speed:int)</h3>
+<p>控制变形车左右运动x秒/度后停止。<br></p>
+<p>• <code>direction</code> - 方向（0：前进；1：后退）<br>
+ • <code>speed</code> - 前进/后退速度,范围： [0-80] 厘米/秒<br>
+ • <code>turn</code> -  方向（2：左转；3：右转） <br>
+ • <code>turn_speed</code> - 旋转速度,范围：[0-280] 度/秒 <br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="transform_motor_controllfintrfintlbintrbint">transform_motor_control(lf:int,rf:int,lb:int,rb:int)</h3>
+<p>控制变形车四个电机转动。<br></p>
+<p>• <code>lf</code> - 左前轮速度,转/分<br>
+ • <code>rf</code> - 右前轮速度,转/分<br>
+ • <code>lb</code> - 左后轮速度,转/分<br>
+ • <code>rb</code> - 右后轮速度,转/分<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="transform_stop">transform_stop()</h3>
+<p>变形车停止运动。<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="transform_arm_controljointintpositionint-timeint">transform_arm_control(joint:int,position:int, time:int)</h3>
+<p>设置变形车四个臂角度。<br></p>
+<p>• <code>joint</code> - 臂(1:左前臂；2:左后臂；3:右后臂；4:右前臂)<br>
+ • <code>position</code> -  角度<br>
+ • <code>time</code> -  时长 ms<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="transform_adaption_controloptionbool">transform_adaption_control(option:bool)</h3>
+<p>开启/关闭自适应，变形车可以根据不同地形调整姿态。<br></p>
+<p>• <code>option</code> -开关状态 True表示开，False表示关<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<hr>
+<h2 id="_4">麦轮车</h2>
+<p>....</p>
+<p><br></p>
+<h3 id="mecanum_translate_speedangleintangleint">mecanum_translate_speed(angle:int,angle:int)</h3>
+<p>麦轮车向指定方向做平移运动。<br></p>
+<p>• <code>angle</code> -角度,范围：[-180, 180]度(以XY为平面，Y轴为0度方向，左[0, -180] 右[0, 180])<br>
+ • <code>speed</code> -前进/后退速度,范围：[5-80]厘米/秒<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mecanum_translate_speed_timesangleintspeedinttimesintunitint">mecanum_translate_speed_times(angle:int,speed:int,times:int,unit:int)</h3>
+<p>麦轮麦轮车向指定方向做平移运动x秒/cm后停止。<br></p>
+<p>• <code>angle</code> -角度,范围：[-180, 180]度(以XY为平面，Y轴为0度方向，左[0, -180] 右[0, 180])<br>
+ • <code>speed</code> -速度,范围：[5,80]厘米/秒<br>
+ • <code>times</code> -持续范围, 范围：[0-200]秒<br>
+ • <code>unit</code> -单位类型（0：表示按秒运动；1：表示按厘米运动）<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mecanum_move_xyzx_speedinty_speedintz_speedint">mecanum_move_xyz(x_speed:int,y_speed:int,z_speed:int)</h3>
+<p>控制麦轮车以指定速度沿指定方向持续运动。<br></p>
+<p>• <code>x_speed</code> -x轴方向速度,范围：[-80, 80]<br>
+ • <code>y_speed</code> -y轴方向速度,范围：[-80, 80]<br>
+ • <code>z_speed</code> -z轴方向速度,范围：[-280, 280]<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mecanum_move_speeddirectionintspeedint">mecanum_move_speed(direction:int,speed:int)</h3>
+<p>麦轮车前进/后退运动。<br></p>
+<p>• <code>direction</code> -方向（0：前进；1：后退）<br>
+ • <code>speed</code> -速度,范围：[5,80]厘米/秒<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mecanum_turn_speedturnintspeedint">mecanum_turn_speed(turn:int,speed:int)</h3>
+<p>麦轮车左转/右转运动。<br></p>
+<p>• <code>turn</code> -方向（2：左转；3：右转）<br>
+ • <code>speed</code> -速度,范围：[5,280]厘米/秒<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mecanum_move_speed_timesdirectionint-speedint-timesint-unitint">mecanum_move_speed_times(direction:int, speed:int, times:int, unit:int)</h3>
+<p>控制麦轮车前后运动x秒/cm后停止。<br></p>
+<p>• <code>direction</code> -方向（0：前进；1：后退）<br>
+ • <code>speed</code> -速度,范围：[5,80]厘米/秒<br>
+ • <code>times</code> -持续范围, 范围：[0-200]秒<br>
+ • <code>unit</code> -单位类型（0：表示按秒运动；1：表示按厘米运动）<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mecanum_turn_speed_timesdirectionintspeedinttimesintunitint">mecanum_turn_speed_times(direction:int,speed:int,times:int,unit:int)</h3>
+<p>控制麦轮车左右运动x秒/度后停止。<br></p>
+<p>• <code>direction</code> -方向（2：左转；3：右转）<br>
+ • <code>speed</code> -速度,范围：[5,280]厘米/秒<br>
+ • <code>times</code> -持续范围, 范围：[0-200]秒<br>
+ • <code>unit</code> -单位类型（0：表示按秒运动；2：表示按度运动）<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mecanum_move_turnangleintspeedintturnintturn_speedint">mecanum_move_turn(angle:int,speed:int,turn:int,turn_speed:int)</h3>
+<p>控制麦轮车向指定方向运动同时做旋转运动。<br></p>
+<p>• <code>angle</code> -角度,范围：[-180, 180]度(以XY为平面，Y轴为0度方向，左[0, -180] 右[0, 180])<br>
+ • <code>speed</code> -速度,范围：[5,80]厘米/秒<br>
+ • <code>turn</code> -方向（2：左转；3：右转）<br>
+ • <code>turn_speed</code> -旋转速度,范围：[5-280]度/秒<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mecanum_motor_controllfintrfintlbintrbint">mecanum_motor_control(lf:int,rf:int,lb:int,rb:int)</h3>
+<p>控制麦轮车四个电机转动。<br></p>
+<p>• <code>lf</code> - 左前轮速度,转/分<br>
+ • <code>rf</code> - 右前轮速度,转/分<br>
+ • <code>lb</code> - 左后轮速度,转/分<br>
+ • <code>rb</code> - 右后轮速度,转/分<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mecanum_stop">mecanum_stop()</h3>
+<p>麦轮车停止运动。<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<hr>
+
+<h2 id="_5">平衡车</h2>
+<p>....</p>
+<p><br></p>
+<h3 id="balance_start_balancing">balance_start_balancing()</h3>
+<p>启动小车并保持自平衡。<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="balance_stop_balancing">balance_stop_balancing()</h3>
+<p>停止小车并保持自平衡。<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="balance_move_speeddirectionintspeedint">balance_move_speed(direction:int,speed:int)</h3>
+<p>平衡车前进/后退运动。<br></p>
+<p>• <code>direction</code> - 方向（0：前进；1：后退）<br>
+ • <code>speed</code> -  速度,范围：[5,80]厘米/秒<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="balance_turn_speedturnintspeedint">balance_turn_speed(turn:int,speed:int)</h3>
+<p>平衡车左转/右转运动。<br></p>
+<p>• <code>turn</code> - 方向（2：左转；3：右转）<br>
+ • <code>speed</code> -  速度,范围：[5,360]厘米/秒<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="balance_move_speed_timesdirectionintspeedinttimesintunitint">balance_move_speed_times(direction:int,speed:int,times:int,unit:int)</h3>
+<p>控制平衡车前后运动x秒/cm后停止。<br></p>
+<p>• <code>direction</code> - 方向（0：前进；1：后退）<br>
+ • <code>speed</code> - 速度,范围：[5,80]厘米/秒<br>
+ • <code>times</code> - 持续范围,范围：[0,200]<br>
+ • <code>unit</code> - 单位类型（0：表示按秒运动；1：表示按厘米运动）<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="balance_turn_speed_timesturnintspeedinttimesintunitint">balance_turn_speed_times(turn:int,speed:int,times:int,unit:int)</h3>
+<p>控制平衡左右运动x秒/度后停止。<br></p>
+<p>• <code>turn</code> -方向（2：左转；3：右转）<br>
+ • <code>speed</code> - 速度,范围：[5,360]厘米/秒<br>
+ • <code>times</code> - 持续范围,范围：[0,200]<br>
+ • <code>unit</code> - 单位类型（0：表示按秒运动；2：表示按度运动）<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="balance_move_turndirectionintspeedintturnintturn_speedint">balance_move_turn(direction:int,speed:int,turn:int,turn_speed:int)</h3>
+<p>控制平衡车指定方向运动同时做旋转。<br></p>
+<p>• <code>direction</code> -方向（0：前进；1：后退）<br>
+ • <code>speed</code> -前进/后退速度,范围：[5,80]厘米/秒<br>
+ • <code>turn</code> -方向（2：左转；3：右转）<br>
+ • <code>turn_speed</code> -旋转速度,范围：[5-360] <br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<hr>
+
+<h2 id="_6">机械臂</h2>
+<p>....</p>
+<p><br></p>
+<h3 id="mechanical_clamp_release">mechanical_clamp_release()</h3>
+<p>打开夹手。<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mechanical_clamp_close">mechanical_clamp_close()</h3>
+<p>闭合夹手。<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mechanical_get_clamp_statusint">mechanical_get_clamp_status()→int</h3>
+<p>获取夹手状态。<br></p>
+<p>•  返回状态（0 打开，1，闭合）<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mechanical_arms_restory">mechanical_arms_restory()</h3>
+<p>机械臂复位。<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mechanical_joint_controlangle1intangle2intangle3intdurationint">mechanical_joint_control(angle1:int,angle2:int,angle3:int,duration:int)</h3>
+<p>机械臂关节角度控制。<br></p>
+<p>• <code>angle1</code> -关节1角度,范围：[-90, 90]度<br>
+ • <code>angle2</code> -关节2角度,范围：[-80, 110]度<br>
+ • <code>angle3</code> -关节3角度,范围：[-90, 90]度<br>
+ • <code>duration</code> -运行时长,范围：[20, 5000]毫秒<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mechanical_single_joint_controljointintangleintdurationint">mechanical_single_joint_control(joint:int,angle:int,duration:int)</h3>
+<p>机械臂单个关节角度控制。<br></p>
+<p>• <code>joint</code> -关节序号(1: 关节1, 2: 关节2, 3: 关节3)<br>
+ • <code>angle</code> -关节角度(关节1：[-90, 90], 关节2：[-80, 110], 关节3：[-90, 90])<br>
+ • <code>duration</code> -运行时长,范围：[20, 5000]毫秒<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="mechanical_move_axisxfloatyfloatzfloatdurationint">mechanical_move_axis(x:float,y:float,z:float,duration:int)</h3>
+<p>以小车为坐标系，逆解算机械臂，移动到位置x,y,z。<br></p>
+<p>• <code>x</code> -x坐标,范围：[-5, 25]厘米<br>
+ • <code>y</code> -y坐标,范围：[-25, 25]厘米<br>
+ • <code>z</code> -z坐标,范围：[-16, 16]厘米<br>
+ • <code>duration</code> -运行时长,范围：[20, 5000]毫秒<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<hr>
+
+<h2 id="ai">AI视觉</h2>
+<p>....</p>
+<p><br></p>
+<hr>
+
+<h2 id="_7">语音</h2>
+<p>....</p>
+<p><br></p>
+<hr>
+
+<h2 id="_8">显示屏</h2>
+<p>....</p>
+<p><br></p>
+<hr>
+
+<h2 id="_9">灯光</h2>
+<p>....</p>
+<p><br></p>
+<hr>
+
+<h2 id="_10">传感器</h2>
+<p>....</p>
+<p><br></p>
+<hr>
+
+<h2 id="_11">物联网</h2>
+<p>....</p>
+<p><br></p>
+<hr>
+
+<h2 id="_12">电池</h2>
+<p>....</p>
+<h3 id="get_power_statuslist">get_power_status()→list</h3>
+<p>获取电池状态列表: [scale, power_plug, status]</p>
+<p>• <code>scale(int)</code> -电量百分比<br>
+ • <code>power_plug(bool)</code> -是否插入电源线<br>
+ • <code>status(int)</code> -状态(0 正常, 1 低电, 2 充电中, 3 充满电, 4 异常)<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<hr>
+
+<h2 id="_13">蓝牙</h2>
+<p>....</p>
+<h3 id="get_bluetooth_statuslist">get_bluetooth_status()→list</h3>
+<p>获取当前蓝牙信息,返回蓝牙状态信息列表: [poweron, connected, remote_device_name, remote_device_address]</p>
+<p>• <code>poweron(bool)</code> -是否打开蓝牙<br>
+ • <code>connected(bool)</code> -是否连接蓝牙外设<br>
+ • <code>remote_device_name(str)</code> -外设名称<br>
+ • <code>remote_device_address(str)</code> -外设名称 mac address<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="get_mac_addressstr">get_mac_address()→str</h3>
+<p>获取主控mac地址</p>
+<p>• mac地址(str)</p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+<h3 id="get_device_namestr">get_device_name()→str</h3>
+<p>获取主控名称</p>
+<p>• 主控名称(str): UGOT_XXXX</p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX
+</code></pre>
+<p><br></p>
+<h3 id="get_peripheral_devices_listlist">get_peripheral_devices_list()→list</h3>
+<p>获取所有外接设备列表，返回设备列表: [ {'type': '', 'deviceId': '', 'firmware': '', 'serial': ''}]</p>
+<p>• <code>type(str)</code> -设备类型 motor: 电机, servo: 舵机, power: 电池, Clamp: 抓手, Infrared: 测距传感器<br>
+ • <code>deviceId(str)</code> -是否连接蓝牙外设<br>
+ • <code>firmware(str)</code> -设备ID<br>
+ • <code>serial(str)</code> -设备序列号<br></p>
+<pre><code>from ugot.ugot import UGOT
+
+XXX                      #。。
+</code></pre>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../custom/" class="btn btn-neutral float-right" title="第三章:进阶玩法">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="第一章:认识UGOT"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Provided by <a herf="https://aiedu.ubtrobot.com/web/#/login">UBGenius</a>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../custom/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
